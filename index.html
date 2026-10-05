@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fb">
+  <meta name="description" content="Análisis local en el navegador de datos de mantenimiento GMAO: OT, downtime, costos, MTTR, Pareto y Jack-Knife.">
+  <title>GMAO | Analítica de mantenimiento</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./" aria-label="Inicio GMAO">
+      <span class="brand-mark">G</span>
+      <span><strong>GMAO</strong><small>Analítica de mantenimiento</small></span>
+    </a>
+    <div class="topbar-actions">
+      <span class="privacy-pill"><span></span>Procesamiento local</span>
+      <button id="exportCsv" class="button button-quiet" type="button">Exportar selección</button>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="sidebar-heading">
+        <p class="eyebrow">ESPACIO DE TRABAJO</p>
+        <h1>Análisis CMMS</h1>
+        <p>Explora el desempeño de mantenimiento y prioriza las pérdidas que más importan.</p>
+      </div>
+
+      <section class="filter-panel" aria-labelledby="data-heading">
+        <div class="panel-title-row">
+          <h2 id="data-heading">Fuente de datos</h2>
+          <button id="resetFilters" class="text-button" type="button">Restablecer</button>
+        </div>
+        <label for="datasetSelect">Dataset disponible</label>
+        <select id="datasetSelect">
+          <option value="CMMS_grupo_A.csv">Grupo A</option>
+          <option value="CMMS_grupo_B.csv">Grupo B</option>
+          <option value="CMMS_grupo_C.csv">Grupo C</option>
+          <option value="CMMS_grupo_D.csv">Grupo D</option>
+        </select>
+        <label class="upload-control" for="fileInput">
+          <span class="upload-icon" aria-hidden="true">↑</span>
+          <span><strong>Cargar otro CSV</strong><small>El archivo permanece en este navegador</small></span>
+        </label>
+        <input id="fileInput" type="file" accept=".csv,text/csv">
+        <p id="dataStatus" class="status-text" role="status">Cargando dataset…</p>
+      </section>
+
+      <section class="filter-panel" aria-labelledby="filters-heading">
+        <div class="panel-title-row">
+          <h2 id="filters-heading">Filtros</h2>
+          <span id="activeFilterCount" class="filter-count">0</span>
+        </div>
+        <label for="maintenanceFilter">Tipo de mantenimiento</label>
+        <select id="maintenanceFilter"><option value="">Todos los tipos</option></select>
+        <label for="criticalityFilter">Criticidad</label>
+        <select id="criticalityFilter"><option value="">Todas las criticidades</option></select>
+        <label for="equipmentFilter">Equipo</label>
+        <select id="equipmentFilter"><option value="">Todos los equipos</option></select>
+        <div class="date-filter">
+          <div><label for="dateFrom">Desde creación</label><input id="dateFrom" type="date"></div>
+          <div><label for="dateTo">Hasta</label><input id="dateTo" type="date"></div>
+        </div>
+        <p class="filter-hint">Los KPI, tablas y gráficos se actualizan con los filtros seleccionados.</p>
+      </section>
+
+      <div class="sidebar-foot">
+        <span class="status-dot"></span>
+        <span>Sin backend · sin envío de datos</span>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="page-heading">
+        <div>
+          <p class="eyebrow">GESTIÓN DE ACTIVOS · DESEMPEÑO OPERACIONAL</p>
+          <h2 id="pageTitle">Resumen ejecutivo</h2>
+          <p id="pageSubtitle">Indicadores principales del dataset seleccionado.</p>
+        </div>
+        <div class="dataset-badge"><span class="status-dot"></span><span id="loadedName">Preparando datos</span></div>
+      </div>
+
+      <div id="errorBanner" class="error-banner" role="alert" hidden></div>
+      <div id="dashboardContent">
+        <nav class="tabs" aria-label="Secciones del análisis">
+          <button class="tab active" type="button" data-page="overview">Resumen</button>
+          <button class="tab" type="button" data-page="downtime">Downtime</button>
+          <button class="tab" type="button" data-page="costs">Costos</button>
+          <button class="tab" type="button" data-page="mttr">MTTR</button>
+          <button class="tab" type="button" data-page="pareto">Pareto</button>
+          <button class="tab" type="button" data-page="jackknife">Jack-Knife</button>
+          <button class="tab" type="button" data-page="data">Datos</button>
+        </nav>
+        <section id="pageContent" aria-live="polite" aria-busy="true">
+          <div class="loading-card"><span class="spinner"></span><span>Procesando órdenes de trabajo…</span></div>
+        </section>
+      </div>
+      <footer class="page-footer">
+        <span>GMAO · herramienta de análisis estático</span>
+        <span>Los indicadores dependen de la calidad y cobertura del archivo CMMS.</span>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>
