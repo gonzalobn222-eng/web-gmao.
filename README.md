@@ -63,3 +63,4 @@ Si prefieres mantener la aplicación dentro de un repositorio con otros archivos
 ## Privacidad de los datasets
 
 GitHub Pages sirve los archivos estáticos de forma pública. Los CSV incluidos dentro de `data/` serán descargables por cualquier persona que pueda acceder al sitio/repositorio. Revisa y autoriza la publicación de los datos con tu organización antes de subirlos a un repositorio público. Para usar otro archivo desde el navegador, usa **Cargar otro CSV**; ese archivo se procesa localmente y no se carga a GitHub.
+Actualización de despliegue
